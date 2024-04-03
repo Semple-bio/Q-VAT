@@ -25,6 +25,7 @@
 #@ Float (label="Particle size lower range (µm^2)", min=0, value=10000, persist=false, style="format:#.######") particle_size_lower_range_um
 #@ Float (label="Radius for median filtering (µm)", min=0, value=15, persist=false, style="format:#.######") median_filt_radius
 #@ Float (label="Remove small particles (µm^2)", min=0, value=10, persist=false, style="format:#.######") remove_small_particles
+#@ String (choices={"Default", "Hardcoded"}, style="radioButtonHorizontal") Tissuefinder_method
 #@ String (choices={"Default","Huang", "Otsu"}, style="listbox") Thresholding_method
 #@ String (choices={".tif", ".tiff", ".png", ".jpg"}, style="listBox") file_extension
 #@ String (choices={"Yes", "No"}, style="radioButtonHorizontal") save_validation_image
@@ -141,7 +142,12 @@ for (k=0; k<subFolderList.length;k++){
 				run("Apply LUT"); //apply the LUT (after saturation)
 				run("Smooth");
 				
+				if (Tissuefinder_method == "Default") {
 				setAutoThreshold("Huang dark");
+				}
+				if (Tissuefinder_method == "Hardcoded") {
+				setThreshold(40, 255);
+				}
 				run("Threshold...");
 				call("ij.plugin.frame.ThresholdAdjuster.setMode", "B&W");
 				close("Threshold");	
