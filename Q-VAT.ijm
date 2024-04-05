@@ -376,7 +376,7 @@ if (fileList.length == ROIfileList.length) {
 								Table.setColumn("Brach density ratio below threshold (chan2/chan1)", branchdensitybelow_ratio)
 								
 								
-								run("Read and Write Excel", "file=["+ outputDir2 + "//" + name + "_vascular_density.xlsx], stack_results, sheet=co-localization_Chan2/Chan1"); //save output in excell file in the folder of the ROI						
+								run("Read and Write Excel", "file=["+ outputDir2 + File.separator + name + "_vascular_density.xlsx], stack_results, sheet=co-localization_Chan2/Chan1"); //save output in excell file in the folder of the ROI						
 								close("Results");
 							}
 						}
@@ -471,7 +471,7 @@ if (fileList.length == ROIfileList.length) {
 								Table.setColumn("Vessel length density ratio below threshold (chan3/chan1)", vessellengthdensitybelow_ratio)
 								Table.setColumn("Brach density ratio below threshold (chan3/chan1)", branchdensitybelow_ratio)
 								
-								run("Read and Write Excel", "file=["+ outputDir3 + "//" + name + "_vascular_density.xlsx], stack_results, sheet=co-localization_Chan3/Chan1"); //save output in excell file in the folder of the ROI						
+								run("Read and Write Excel", "file=["+ outputDir3 + File.separator + name + "_vascular_density.xlsx], stack_results, sheet=co-localization_Chan3/Chan1"); //save output in excell file in the folder of the ROI						
 								close("Results"); 
 							
 								filename = newArray(1);	
@@ -518,7 +518,7 @@ if (fileList.length == ROIfileList.length) {
 								Table.setColumn("Vessel length density ratio below threshold (chan3/chan2)", vessellengthdensitybelow_ratio)
 								Table.setColumn("Brach density ratio below threshold (chan3/chan2)", branchdensitybelow_ratio)
 								
-								run("Read and Write Excel", "file=["+ outputDir3 + "//" + name + "_vascular_density.xlsx], stack_results, sheet=co-localization_Chan3/Chan2 "); //save output in excell file in the folder of the ROI						
+								run("Read and Write Excel", "file=["+ outputDir3 + File.separator + name + "_vascular_density.xlsx], stack_results, sheet=co-localization_Chan3/Chan2 "); //save output in excell file in the folder of the ROI						
 								close("Results");
 							}
 						}
@@ -689,11 +689,11 @@ function Analyze_Tile(Dir, Chan1List, chanDir, ChanList, savedir, masked_voxel_a
 	//SAVE output figures							
 	if (Save_Output_Figures == "Yes") {
 		if (chanDir == "None"){
-			saveAs("Tiff", savedir + "//" + "output_" + Chan1List);
+			saveAs("Tiff", savedir + File.separator + "output_" + Chan1List);
 			selectWindow("output_" + Chan1List);
 		}
 		else{
-			saveAs("Tiff", savedir + "//" + "output_" + ChanList);
+			saveAs("Tiff", savedir + File.separator + "output_" + ChanList);
 			selectWindow("output_" + ChanList);
 		}
 		rename("Masked_IMG"); 
@@ -769,12 +769,12 @@ function Analyze_Tile(Dir, Chan1List, chanDir, ChanList, savedir, masked_voxel_a
 		if (Save_Output_Figures == "Yes") {
 			if (chanDir == "None"){
 				selectWindow("Masked_IMG-pruned");	
-				saveAs("Tiff", savedir + "//" + "output_Skeleton" + Chan1List);
+				saveAs("Tiff", savedir + File.separator + "output_Skeleton" + Chan1List);
 				selectWindow("output_Skeleton" + Chan1List);
 			}
 			else{
 				selectWindow("Masked_IMG-pruned");	
-				saveAs("Tiff", savedir + "//" + "output_Skeleton" + ChanList);
+				saveAs("Tiff", savedir + File.separator + "output_Skeleton" + ChanList);
 				selectWindow("output_Skeleton" + ChanList);
 			}
 			rename("Masked_IMG"); 
@@ -1101,7 +1101,7 @@ function Analyze_Tile(Dir, Chan1List, chanDir, ChanList, savedir, masked_voxel_a
 		filename = File.getParent(Dir); //get the name of the directory
 		name = File.getName(filename);
 		
-		run("Read and Write Excel", "file=["+ savedir + "//" + name + "_vascular_density.xlsx], stack_results, sheet=Channel"); //save output in excell file in the folder of the ROI
+		run("Read and Write Excel", "file=["+ savedir + File.separator + name + "_vascular_density.xlsx], stack_results, sheet=Channel"); //save output in excell file in the folder of the ROI
 	}
 }
 
@@ -1118,11 +1118,11 @@ function makefigure(channel_array, channel_name, min, max, LUTname, output, numC
 					
 	setMinAndMax(min, max);
 	run(LUTname);
-	saveAs("Tiff", output + "//" + channel_name);
+	saveAs("Tiff", output + File.separator + channel_name);
 	selectWindow(channel_name + ".tif");
 	run("Calibration Bar...", "location=[Separate Image] fill=White label=Black number=5 decimal=0 font=10 zoom=2 bold");
 	selectWindow("CBar"); 
-	saveAs("Tiff", output + "//" + channel_name + "_CBar");
+	saveAs("Tiff", output + File.separator + channel_name + "_CBar");
 	close(channel_name + "_CBar.tif");
 	selectWindow(channel_name + ".tif");
 	close(channel_name + ".tif");											
